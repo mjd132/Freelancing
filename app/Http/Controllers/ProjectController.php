@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProjectStatus;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class ProjectController extends Controller
 {
@@ -11,7 +14,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::where('last_status', ProjectStatus::CREATED)->latest()->paginate(5);
+        return Response::json($projects);
     }
 
     /**
