@@ -21,7 +21,7 @@ class ProjectFactory extends Factory
         return [
             'employer_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
-            'body' => $this->faker->text(),
+            'body' => $this->faker->text(500),
             'budget' => $this->faker->numberBetween(100000, 10000000),
         ];
     }
