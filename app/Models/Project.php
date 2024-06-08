@@ -16,15 +16,20 @@ class Project extends Model
         'budget',
     ];
 
-    public function freelancer(){
-        return $this->belongsTo(User::class,'freelancer_id');
+    public function freelancer()
+    {
+        return $this->belongsTo(User::class, 'freelancer_id');
 
     }
-    public function employer(){
-        return $this->belongsTo(User::class,'employer_id');
+
+    public function employer()
+    {
+        return $this->belongsTo(User::class, 'employer_id');
     }
-    public function proposals(){
-        return $this->hasMany(Proposal::class,'project_id');
+
+    public function proposals()
+    {
+        return $this->hasMany(Proposal::class, 'project_id');
     }
 
 }

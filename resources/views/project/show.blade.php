@@ -1,7 +1,5 @@
-
-
 <x-layout>
-    <x-main-header />
+    <x-main-header/>
     <div class="container mt-3">
         <h3>{{$project->title}}</h3>
 
@@ -16,19 +14,26 @@
                 {{$project->budget}} $
             </h3>
         </div>
-        @foreach($project->proposals as $proposal)
-            {{$proposal->price}}
+        <h5 class="mt-4">
+            Proposals
+        </h5>
+        @foreach($proposals as $proposal)
+
             <div class="card">
-                <div class="card-title">
-                    {{$proposal->freelancer->name}}
+                <div class="card-body">
+                    <div class="card-title">
+                        {{$proposal->freelancer->name}}
+                    </div>
+                    <div class="card-subtitle">
+                        Price: {{$proposal->price}}
+                    </div>
+                    <div>{{$proposal->created_at->diffForHumans()}}</div>
                 </div>
-                <div class="card-subtitle"></div>
-                <div class="card-body"></div>
             </div>
         @endforeach
 
         @auth
-        <a href="#" class="btn btn-success mt-4">Send Proposal</a>
+            <a href="#" class="btn btn-success mt-4">Send Proposal</a>
         @endauth
     </div>
 </x-layout>

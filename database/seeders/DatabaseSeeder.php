@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Project;
 use App\Models\Proposal;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
