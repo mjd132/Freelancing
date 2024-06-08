@@ -6,7 +6,7 @@
                 <div class="card bg-transparent">
                     <div class="card-header text-white border-white">Create Post</div>
                     <div class="card-body">
-                        <form action="{{ route('project.store') }}" method="POST">
+                        <form action="{{ route('projects.store') }}" method="POST">
                             @csrf
                             <div class="form-group mb-2">
                                 <label for="title">Title</label>
@@ -20,7 +20,7 @@
                             </div>
                             <div class="form-group mb-2">
                                 <label for="content">Budget</label>
-                                <input class="form-control w-25" id="content" name="body" type="number"
+                                <input class="form-control w-25" id="content" name="budget" type="number"
                                     placeholder="Enter budget" />
                             </div>
 

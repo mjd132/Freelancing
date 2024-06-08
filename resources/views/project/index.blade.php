@@ -8,13 +8,18 @@
                 <div class="col-8">
                     @foreach ($projects as $project)
                         <div class="card mb-3">
-                            <a href="{{route('project.show', $project)}}" class="card-body">
+                            <a href="{{route('projects.show', $project)}}" class="card-body">
                                 <h5 class="card-title">{{$project->title}}</h5>
                                 <p>
                                     {{Str::limit($project->body, 200)}}
                                 </p>
+                                <h5 class="card-subtitle">
+                                   Budget {{$project->budget}}
+                                </h5>
                             </a>
+                            @auth
                             <a href="#" class="btn btn-outline-success">Send proposal...</a>
+                            @endauth
                         </div>
                     @endforeach
                 </div>

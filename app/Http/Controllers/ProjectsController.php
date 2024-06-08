@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Enums\ProjectStatus;
 use App\Models\Project;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ProjectController extends Controller
+class ProjectsController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -31,75 +34,68 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'title' => 'required|string|max:100',
             'body' => 'required|string',
             'budget' => 'required|number',
         ]);
 
-        if ($validator->failed())
-            return back()->withErrors($validator->errors());
+        Project::create([
+            'title' => $request->get('title'),
+            'body' => $request->get('body'),
+            'budget' => $request->get('budget')
+        ]);
 
-        Project::create($validator->getData());
         return to_route('project.index', ['success' => 'Project created successfully!']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(int $id)
     {
-
-        return view('project.show', compact('project'));
+        $project = Project::query()->findOrFail($id);
+        return view('project.show')->with([
+            'project' => $project
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(int $id)
     {
-        return view('project.edit', compact('project'));
+        $project = Project::query()->findOrFail($id);
+
+        return view('project.edit')->with([
+            'project' => $project
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [
+
+        $validatedReq = $request->validate([
             'title' => 'required|string|max:100',
-            'body' => 'required|string',
-            'budget' => 'required|number',
+            'body' => 'required|string|max:10000',
+            'budget' => 'required|numeric',
         ]);
+        $project = Project::query()->findOrFail($id);
+        $project->update($validatedReq);
 
-        if ($validator->failed())
-            return back()->withErrors($validator->errors());
-
-        $project->update($validator->getData());
-        return to_route('project.index', ['success' => 'Project updated successfully!']);
+        return to_route('home')->with(['success' => 'Project updated successfully!']);
     }
 
     /**
      * Close a project
      */
-    public function close(string $id)
+    public function close(int $id)
     {
-        //
+
     }
 
-    /** 
-     * show form for send a proposal
-     */
-    // public function SendProposal()
-    // {
-    //     return view('project.SendProposal');
-    // }
-    /** 
-     * register a proposal to database
-     */
-    // public function RegisterProposal()
-    // {
-
-    // }
 
 }

@@ -14,7 +14,8 @@
                 {{$project->budget}} $
             </h3>
         </div>
-
+        @auth
         <a href="#" class="btn btn-success mt-4">Send Proposal</a>
+        @endauth
     </div>
 </x-layout>

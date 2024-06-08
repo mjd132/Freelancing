@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
+require __DIR__.'/projects.php';
 
-Route::get('/', [ProjectController::class, 'index'])->name('home');
-Route::resource('project', ProjectController::class);
+require __DIR__.'/auth.php';
