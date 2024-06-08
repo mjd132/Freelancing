@@ -55,8 +55,11 @@ class ProjectsController extends Controller
     public function show(int $id)
     {
         $project = Project::query()->findOrFail($id);
+        $proposals = $project->proposals()->orderBy('created_at', 'desc')->take(2)->get();
+
         return view('project.show')->with([
-            'project' => $project
+            'project' => $project ,
+            'proposals' => $proposals,
         ]);
     }
 

@@ -1,3 +1,5 @@
+
+
 <x-layout>
     <x-main-header />
     <div class="container mt-3">
@@ -14,6 +16,17 @@
                 {{$project->budget}} $
             </h3>
         </div>
+        @foreach($project->proposals as $proposal)
+            {{$proposal->price}}
+            <div class="card">
+                <div class="card-title">
+                    {{$proposal->freelancer->name}}
+                </div>
+                <div class="card-subtitle"></div>
+                <div class="card-body"></div>
+            </div>
+        @endforeach
+
         @auth
         <a href="#" class="btn btn-success mt-4">Send Proposal</a>
         @endauth
