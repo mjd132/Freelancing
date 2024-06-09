@@ -22,6 +22,7 @@ class ProjectFactory extends Factory
             'employer_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
             'body' => $this->faker->text(500),
+            'last_status' => ProjectStatus::PUBLISHED->value,
             'budget' => $this->faker->numberBetween(100000, 10000000),
         ];
     }

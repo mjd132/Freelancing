@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class Project extends Model
 {
@@ -14,6 +15,11 @@ class Project extends Model
         'title',
         'body',
         'budget',
+        'freelancer_id',
+        'last_status'
+    ];
+    protected $casts = [
+        'last_status' => ProjectStatus::class,
     ];
 
     public function freelancer()
@@ -31,5 +37,26 @@ class Project extends Model
     {
         return $this->hasMany(Proposal::class, 'project_id');
     }
+
+    public function isDone()
+    {
+        return $this->last_status === ProjectStatus::DONE;
+    }
+
+    public function isAccepted()
+    {
+        return $this->last_status === ProjectStatus::ACCEPTED;
+    }
+
+    public function isPublished()
+    {
+        return $this->last_status === ProjectStatus::PUBLISHED;
+    }
+
+    public function isAbandoned()
+    {
+        return $this->last_status === ProjectStatus::ABANDONED;
+    }
+
 
 }

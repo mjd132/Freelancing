@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2 ">
                 <div class="card bg-transparent">
-                    <div class="card-header text-white border-white">Create Post</div>
+                    <div class="card-header text-white border-white">Create Project</div>
                     <div class="card-body">
                         <form action="{{ route('projects.store') }}" method="POST">
                             @csrf

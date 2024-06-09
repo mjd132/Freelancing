@@ -10,6 +10,7 @@ enum ProjectStatus :string
     case DONE = 'done';
     case DOING = 'doing';
     case CANCELED = 'canceled';
+    case ABANDONED = 'abandoned';
     public static function values(){
         return array_column(self::cases(),"value");
     }

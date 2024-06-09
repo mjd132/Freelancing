@@ -1,5 +1,5 @@
 <x-layout>
-    <x-main-header />
+    <x-main-header/>
     <div class="container">
         <div class="row d-flex justify-content-center">
             @if ($projects->isEmpty())
@@ -14,12 +14,13 @@
                                     {{Str::limit($project->body, 200)}}
                                 </p>
                                 <h5 class="card-subtitle">
-                                   Budget {{$project->budget}}
+                                    Budget {{$project->budget}}
                                 </h5>
                             </a>
-                            @auth
-                            <a href="#" class="btn btn-outline-success">Send proposal...</a>
-                            @endauth
+                            {{--                            @auth--}}
+                            <a href="{{route('proposals.create',$project->id)}}" class="btn btn-outline-success">Send
+                                proposal...</a>
+                            {{--                            @endauth--}}
                         </div>
                     @endforeach
                 </div>

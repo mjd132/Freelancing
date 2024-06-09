@@ -1,9 +1,10 @@
 <?php
 
+use App\Enums\ProjectStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use \App\Enums\ProjectStatus;
+
 return new class extends Migration
 {
     /**
@@ -13,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('freelancer_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('freelancer_id')->nullable()->constrained('users');
             $table->foreignId('employer_id')->constrained('users')->onDelete('cascade');
             $table->string('title',100);
             $table->text('body');
-            $table->biginteger('budget')->unsigned();
+            $table->decimal('budget', 12)->unsigned();
             $table->enum('last_status',ProjectStatus::values())->default(ProjectStatus::CREATED);
             $table->timestamps();
         });

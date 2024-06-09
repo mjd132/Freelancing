@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum proposalStatus :string
+enum ProposalStatus: string
 {
     case ACCEPTED = 'accepted';
     case DECLINED = 'declined';
