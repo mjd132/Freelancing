@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Enums\ProjectStatus;
 use App\Models\Project;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
-    use ValidatesRequests;
+
 
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class ProjectsController extends Controller
     public function index()
     {
         $projects = Project::where('last_status', ProjectStatus::PUBLISHED)->latest()->paginate(5);
-        return view('project.index', compact('projects'));
+        return view('project.index',)->with('projects', $projects);
     }
 
     /**
@@ -69,9 +68,9 @@ class ProjectsController extends Controller
     public function edit(int $id)
     {
         $project = Project::query()->findOrFail($id);
-        if ($project->isDone()) {
-            return to_route('projects.show', $id)->with('error', 'Project is done. Cant update');
-        }
+//        if ($project->isDone()) {
+//            return to_route('projects.show', $id)->with('error', 'Project is done. Cant update');
+//        }
         return view('project.edit')->with([
             'project' => $project
         ]);
@@ -83,9 +82,9 @@ class ProjectsController extends Controller
     public function update(Request $request, $id)
     {
         $project = Project::query()->findOrFail($id);
-        if ($project->isDone()) {
-            return to_route('projects.show', $id)->with('error', 'Project is done. Can\'t update');
-        }
+//        if ($project->isDone()) {
+//            return to_route('projects.show', $id)->with('error', 'Project is done. Can\'t update');
+//        }
         $validatedReq = $request->validate([
             'title' => 'required|string|max:100',
             'body' => 'required|string|max:10000',
@@ -97,24 +96,43 @@ class ProjectsController extends Controller
         return to_route('home')->with(['success' => 'Project updated successfully!']);
     }
 
-
+    /**
+     *
+     *  Change status of project to done
+     */
     public function close($id)
     {
         $project = Project::findOrFail($id);
+
         $project->update(['last_status' => ProjectStatus::DONE]);
         return to_route('projects.show', $id)->with(['success' => 'Project updated successfully!']);
     }
 
+    /**
+     *
+     * Change status of project to abandoned
+     */
     public function abandon($id)
     {
         $project = Project::findOrFail($id);
-        if ($project->last_status === ProjectStatus::DOING || $project->last_status === ProjectStatus::ACCEPTED) {
-            $project->update(['last_status' => ProjectStatus::ABANDONED->value, 'freelancer_id' => null]);
-            return to_route('projects.show', $id)->with(['success' => 'Project updated successfully!']);
-        }
-        return to_route('projects.show', $id)->with(['error' => 'Project update failed!']);
+//        if ($project->last_status === ProjectStatus::DOING || $project->last_status === ProjectStatus::ACCEPTED) {       }
+
+        $project->update(['last_status' => ProjectStatus::ABANDONED->value, 'freelancer_id' => null]);
+        return to_route('projects.show', $id)->with(['success' => 'Project updated successfully!']);
+
+
+//        return to_route('projects.show', $id)->with(['error' => 'Project update failed!']);
 
     }
 
-
+    /**
+     *
+     * Change status of project to canceled
+     */
+    public function cancel($id)
+    {
+        $project = Project::findOrFail($id);
+        $project->update(['last_status' => ProjectStatus::CANCELED]);
+        return to_route('home')->with(['success' => 'Project canceled successfully!']);
+    }
 }
