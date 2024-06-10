@@ -26,7 +26,14 @@
                 Accepted At {{$proposal->accepted_at}}
             </p>
         @elseif($proposal->isPending())
-            <a href="{{route('proposals.accept',$proposal->id)}}" class="btn btn-info">Accept Proposal</a>
+            <a href="{{route('proposals.accept',$proposal->id)}}" class="btn btn-info ">Accept Proposal</a>
+
         @endif
+        <a href="{{route('proposals.edit',$proposal->id)}}" class="btn btn-outline-warning">Edit Proposal</a>
+        <form action="{{route('proposals.delete',$proposal->id)}}" method="post">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-outline-danger">Delete Proposal</button>
+        </form>
     </div>
 </x-layout>

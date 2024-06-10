@@ -1,7 +1,7 @@
-<header>
-    <div class="container pt-3 pb-3 d-flex align-items-center justify-content-between">
+<header class="border-bottom mb-3">
+    <div class="container pt-3 pb-3 d-flex align-items-center justify-content-between ">
 
-        <h1>{{config('app.name')}}</h1>
+        <h1><a class="text-decoration-none text-white" href="{{route('home')}}">{{config('app.name')}}</a></h1>
         @auth
             <div class="">
                 <h6>You logged in as {{ Auth::user()->email }} <a href="{{ route('auth.logout') }}">Logout</a></h6>

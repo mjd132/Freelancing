@@ -17,10 +17,18 @@
                                     Budget {{$project->budget}}
                                 </h5>
                             </a>
-                            {{--                            @auth--}}
-                            <a href="{{route('proposals.create',$project->id)}}" class="btn btn-outline-success">Send
-                                proposal...</a>
-                            {{--                            @endauth--}}
+                            <a
+                                href="{{route('proposals.create',$project->id)}}"
+                                class="btn btn-outline-success"
+                            >
+                                Send proposal...
+                            </a>
+                            <a
+                                href="{{route('projects.edit',$project->id)}}"
+                                class="btn btn-outline-warning"
+                            >
+                                Edit project
+                            </a>
                         </div>
                     @endforeach
                 </div>

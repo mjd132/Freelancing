@@ -17,11 +17,11 @@
             </h3>
         </div>
         <h5 class="mt-4">
-            Proposals
+            Proposals - <sub class="d-inline align-baseline"><a
+                    href="{{route('projects.showAllProposals',$project->id)}}">Show all proposals</a></sub>
         </h5>
         @foreach($proposals as $proposal)
-
-            <div class="card">
+            <div class="card m-2 w-50">
                 <a href="{{route('proposals.show',$proposal->id)}}" class="card-body">
                     <div class="card-title">
                         {{$proposal->freelancer->name}}
@@ -36,6 +36,11 @@
 
         {{--        @auth--}}
         <a href="{{route('proposals.create',$project->id)}}" class="btn btn-success mt-4">Send Proposal</a>
+        <a href="{{route('projects.edit',$project->id)}}" class="btn btn-outline-warning mt-4">Edit project</a>
+
+        <a href="{{route('projects.close',$project->id)}}" class="btn btn-outline-info mt-4">Close project</a>
+        <a href="{{route('projects.abandon',$project->id)}}" class="btn btn-outline-danger mt-4">Abandon project</a>
+
         {{--        @endauth--}}
     </div>
 </x-layout>
